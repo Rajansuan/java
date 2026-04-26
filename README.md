@@ -25,6 +25,7 @@ Explained like never before -> Java from scratch to advanced — core concepts e
   - [Polymorphism (3rd Pillar)](#-java-oop---polymorphism-3rd-pillar-🧠) 🧠
     - [Compile-Time Polymorphism](#compile-time-polymorphism) ⏱️
     - [Runtime Polymorphism](#runtime-polymorphism) ⏳
+ - [Abstraction (4th Pillar)](#-java-oop---abstraction-4th-pillar) 🎭
 
 
 ---
@@ -1756,8 +1757,322 @@ Cat meows
 * Decision happens → runtime
 * Based on → object type 👍
 
+<a id="-java-oop---abstraction-4th-pillar"></a>
+<a id="abstraction"></a>
+<a id="abstraction-4th-pillar"></a>
+# ☕ Java OOP — Abstraction (4th Pillar)
 
+---
 
+## 📌 What is Abstraction?
 
+> **Abstraction focuses on showing only essential details while hiding the implementation.**
 
+---
 
+## 👶 Simple Definition
+
+👉 **“Show what to do, hide how it is done.”**
+
+---
+
+## 🧠 Real-Life Example
+
+Think of a **car gear system 🚗**
+
+* You just change the gear
+* You don’t know:
+
+  * How engine works
+  * How gears shift internally
+
+👉 You use the feature without knowing internal logic
+
+---
+
+## ⚙️ How Java Achieves Abstraction?
+
+👉 Using:
+
+* **Abstract Classes**
+* **Interfaces** 
+
+---
+
+# 🧱 Abstract Class
+
+---
+
+## 📌 Key Points
+
+* Declared using `abstract` keyword
+* Can have:
+
+  * Abstract methods (no body)
+  * Concrete methods (with body)
+* ❌ Cannot create object directly
+* ✔ Used as blueprint for subclasses
+
+---
+
+# ⚙️ Example
+
+---
+
+## ✔️ Abstract Parent Class (Animal.java)
+
+```java id="a1x7bz"
+package com.rcs.javalearning.oops;
+
+public abstract class Animal {
+
+  // 🔸 Abstract method (no body)
+  public abstract void sound();
+
+  // 🔸 Concrete method (with body)
+  public void eat(){
+    System.out.println("Animal is eating");
+  }
+}
+```
+
+---
+
+## ✔️ Child Class (Dog.java)
+
+```java id="9h3t6m"
+package com.rcs.javalearning.oops;
+
+public class Dog extends Animal {
+
+  // 🔹 Must override abstract method
+  @Override
+  public void sound(){
+    System.out.println("Dog is barking");
+  }
+}
+```
+
+---
+
+## ✔️ Main Class (Test.java)
+
+```java id="t8z2kc"
+package com.rcs.javalearning.oops;
+
+public class Test {
+  public static void main(String[] args){
+
+    Animal mypet = new Dog(); // cannot create Animal directly
+
+    mypet.sound(); // abstract method implemented by Dog
+    mypet.eat();   // concrete method from Animal
+  }
+}
+```
+
+---
+
+## 🔍 Output
+
+```text id="m7f0dq"
+Dog is barking
+Animal is eating
+```
+
+---
+
+# 🤯 Important Points
+
+## ❓ Why we cannot do this?
+
+```java id="v1z3os"
+Animal a = new Animal(); // ❌ ERROR
+```
+
+👉 Because:
+
+* Abstract class is **incomplete**
+* It has abstract methods (no body)
+
+---
+
+## 🧠 Key Concept
+
+| Type            | Meaning                      |
+| --------------- | ---------------------------- |
+| Abstract Method | No body, must be implemented |
+| Concrete Method | Has body, ready to use       |
+
+---
+
+# 🎯 What Happened?
+
+* `Animal` defines structure
+* `Dog` provides implementation
+* Object decides behavior
+
+---
+
+# ☕ Java OOP — Abstraction (Real-Life Example)
+
+---
+
+## 📌 What is Abstraction?
+
+> **Abstraction focuses on showing only essential details while hiding the implementation.**
+
+---
+
+## 👶 Simple Definition
+
+👉 **“Show what to do, hide how it is done.”**
+
+---
+
+## 🧠 Real-Life Example — Payment System 💳
+
+Think of apps like:
+
+* Google Pay
+* Paytm
+
+---
+
+### 👉 What YOU Do
+
+* Click **Pay ₹500**
+* Choose payment method:
+
+  * UPI
+  * Credit Card
+  * Net Banking
+
+👉 Payment done ✅
+
+---
+
+### 🤯 What YOU DON’T See
+
+* Bank communication
+* Authentication
+* Security checks
+* Transaction processing
+
+👉 All hidden 🔒
+
+---
+
+## 🎯 This is Abstraction
+
+> You use a simple interface (`pay`)
+> System handles complex logic internally
+
+---
+
+# ⚙️ Java Code Example
+
+---
+
+## ✔️ Abstract Class (Payment.java)
+
+```java id="9e4k2n"
+abstract class Payment {
+    abstract void pay(int amount);
+}
+```
+
+---
+
+## ✔️ UPI Implementation (UPI.java)
+
+```java id="n1x9q3"
+class UPI extends Payment {
+    void pay(int amount){
+        System.out.println("Paid " + amount + " using UPI");
+    }
+}
+```
+
+---
+
+## ✔️ Credit Card Implementation (CreditCard.java)
+
+```java id="4f8j2s"
+class CreditCard extends Payment {
+    void pay(int amount){
+        System.out.println("Paid " + amount + " using Credit Card");
+    }
+}
+```
+
+---
+
+## ✔️ Main Class (Test.java)
+
+```java id="z7k3m1"
+public class Test {
+    public static void main(String[] args){
+
+        Payment p1 = new UPI();
+        Payment p2 = new CreditCard();
+
+        p1.pay(500);
+        p2.pay(1000);
+    }
+}
+```
+
+---
+
+## 🔍 Output
+
+```text id="p0x2d9"
+Paid 500 using UPI
+Paid 1000 using Credit Card
+```
+
+---
+
+## 🤯 What Happened?
+
+* You call `pay()`
+* You don’t care how payment happens
+* Different classes handle their own logic
+
+---
+
+## 🧠 Why This is Powerful?
+
+* ✔ Hides complexity
+* ✔ Easy to use
+* ✔ Flexible (add new payment methods easily)
+* ✔ Clean and scalable code
+
+---
+
+## 👶 Simple Analogy
+
+Abstraction = Food delivery app 🍔
+
+* You order food
+* You don’t cook
+* You don’t deliver
+
+👉 Everything happens behind the scenes
+
+---
+
+## 💬 Interview Line
+
+> “A real-life example of abstraction is a payment system where users perform transactions without knowing the internal implementation, similar to abstract classes defining behavior without exposing details.”
+
+---
+
+## 🚀 Final Summary
+
+* Abstract class = common interface
+* Subclasses = implementation
+* User = interacts without knowing internal logic
+
+👉 **Abstraction = Simplicity + Hidden Complexity 👍**
