@@ -23,6 +23,8 @@ Explained like never before -> Java from scratch to advanced — core concepts e
     - [Hierarchical Inheritance](#hierarchical-inheritance) 🌳
     - [Why Java Does NOT Support Multiple Inheritance (Classes)](#why-java-does-not-support-multiple-inheritance) ❌
   - [Polymorphism (3rd Pillar)](#-java-oop---polymorphism-3rd-pillar-🧠) 🧠
+    - [Compile-Time Polymorphism](#compile-time-polymorphism) ⏱️
+    - [Runtime Polymorphism](#runtime-polymorphism) ⏳
 
 
 ---
@@ -1413,7 +1415,7 @@ class SmartPhone extends Phone
 2. **Runtime Polymorphism** → Method Overriding 
 
 ---
-
+<a id="compile-time-polymorphism"></a>
 # 🧠 Compile-Time Polymorphism
 
 👉 Decided at **compile time**
@@ -1574,6 +1576,185 @@ double add(int a, int b)
 # 💬 Interview Line
 
 > “Compile-time polymorphism is achieved using method overloading, where multiple methods have the same name but differ in parameters, and the compiler determines which method to invoke.”
+
+<a id="runtime-polymorphism"></a>
+# 🧠 Runtime Polymorphism
+
+# ☕ Java OOP — Runtime Polymorphism (Method Overriding)
+
+---
+
+## 📌 Definition
+
+> **Runtime polymorphism is achieved through method overriding, where a subclass provides a specific implementation of a method already defined in its parent class. The method to be executed is decided at runtime based on the object.**
+
+---
+
+## 👶 Simple Understanding
+
+👉 Same method name
+👉 Different behavior
+👉 Based on **object type at runtime**
+
+---
+
+# ⚙️ Example
+
+---
+
+## ✔️ Parent Class (Animal.java)
+
+```java
+package com.rcs.javalearning.oops;
+
+public class Animal {
+  public void sound(){
+    System.out.println("Animal makes a sound");
+  }
+}
+```
+
+---
+
+## ✔️ Child Class (Dog.java)
+
+```java
+package com.rcs.javalearning.oops;
+
+public class Dog extends Animal {
+  @Override
+  public void sound(){
+    System.out.println("Dog is barking");
+  }
+}
+```
+
+---
+
+## ✔️ Child Class (Cat.java)
+
+```java
+package com.rcs.javalearning.oops;
+
+public class Cat extends Animal {
+  @Override
+  public void sound(){
+    System.out.println("Cat meows");
+  }
+}
+```
+
+---
+
+## ✔️ Main Class (Test.java)
+
+```java
+package com.rcs.javalearning.oops;
+
+public class Test {
+  public static void main(String[] args){
+
+    Animal mypet1 = new Dog();
+    Animal mypet2 = new Cat();
+
+    mypet1.sound();
+    mypet2.sound();
+  }
+}
+```
+
+---
+
+# 🤯 Important Question
+
+## ❓ Why can we write:
+
+```java
+Animal mypet1 = new Dog();
+```
+
+---
+
+## 🧠 Answer
+
+👉 Because:
+
+> **Dog IS-A Animal**
+
+✔ Dog extends Animal
+✔ So Dog can be treated as Animal
+
+---
+
+## 👶 Simple Analogy
+
+👉 Animal = Parent
+👉 Dog = Child
+
+You can say:
+
+👉 “This is an Animal” (correct)
+👉 Even if it is actually a Dog
+
+---
+
+## 🔑 Key Concept
+
+```java
+Animal mypet1 = new Dog();
+```
+
+* Reference type = Animal
+* Object type = Dog
+
+👉 Method call depends on **object type (Dog)**
+
+---
+
+# 🔍 Output
+
+```text
+Dog is barking
+Cat meows
+```
+
+---
+
+# 🤯 What Happened?
+
+| Variable | Object | Method Called |
+| -------- | ------ | ------------- |
+| mypet1   | Dog    | Dog’s sound() |
+| mypet2   | Cat    | Cat’s sound() |
+
+---
+
+## 🧠 Key Concept
+
+> Method is resolved at **runtime**, not compile time
+
+---
+
+# 🎯 Why It is Called Runtime Polymorphism?
+
+👉 Because Java decides:
+
+> Which method to run → at runtime based on object
+
+---
+
+# 💬 Interview Line
+
+> “Runtime polymorphism is achieved using method overriding, where the method call is resolved at runtime based on the object type rather than the reference type.”
+
+---
+
+# 🚀 Final Summary
+
+* Same method → `sound()`
+* Different implementations → Dog, Cat
+* Decision happens → runtime
+* Based on → object type 👍
 
 
 
