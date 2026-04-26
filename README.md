@@ -25,8 +25,10 @@ Explained like never before -> Java from scratch to advanced — core concepts e
   - [Polymorphism (3rd Pillar)](#-java-oop---polymorphism-3rd-pillar-🧠) 🧠
     - [Compile-Time Polymorphism](#compile-time-polymorphism) ⏱️
     - [Runtime Polymorphism](#runtime-polymorphism) ⏳
- - [Abstraction (4th Pillar)](#-java-oop---abstraction-4th-pillar) 🎭
-
+  - [Abstraction (4th Pillar)](#-java-oop---abstraction-4th-pillar) 🎭
+    - [Interface](#interface) 🧩
+    - [Abstract Class vs Interface](#abstract-vs-interface) ⚔️
+    - [Static & Default Methods in Interface](#-java-oop---static-default-methods-in-interface) ⚡
 
 ---
 
@@ -2076,3 +2078,628 @@ Abstraction = Food delivery app 🍔
 * User = interacts without knowing internal logic
 
 👉 **Abstraction = Simplicity + Hidden Complexity 👍**
+
+<a id="interface"></a>
+
+# ☕ Java OOP — Interface (Abstraction + Multiple Inheritance)
+
+---
+
+## 📌 What is an Interface?
+
+* **Class → Blueprint for Object**
+* **Interface → Blueprint for Class**
+
+---
+
+## 👶 Simple Definition
+
+> **An interface defines WHAT a class should do, not HOW it does it.**
+
+---
+
+## 🧠 Key Points
+
+* Declared using `interface` keyword
+* Methods are **abstract by default**
+* Cannot create object of interface ❌
+* Class uses `implements` keyword
+* Supports **multiple inheritance** ✅
+
+---
+
+## 🎯 Why Interface?
+
+👉 Achieves:
+
+* ✔ Abstraction (hide implementation)
+* ✔ Multiple inheritance (a class can implement multiple interfaces)
+
+---
+
+# ⚙️ Real Example — Smartphone 📱
+
+We want a `SmartPhone` that can:
+
+* Take photos 📷
+* Play music 🎵
+* Make calls 📞
+
+---
+
+## ❌ Problem with Classes
+
+```java
+class SmartPhone extends Camera, MusicPlayer, Phone // ❌ NOT ALLOWED
+```
+
+👉 Java does NOT allow multiple inheritance with classes
+
+---
+
+## ✅ Solution: Use Interfaces
+
+---
+
+## ✔️ Camera Interface
+
+```java id="c1"
+interface Camera {
+  void clickPhoto();
+}
+```
+
+---
+
+## ✔️ MusicPlayer Interface
+
+```java id="c2"
+interface MusicPlayer {
+  void playMusic();
+}
+```
+
+---
+
+## ✔️ Phone Interface
+
+```java id="c3"
+interface Phone {
+  void makeCall();
+}
+```
+
+---
+
+## ✔️ SmartPhone Class
+
+```java id="c4"
+class SmartPhone implements Camera, MusicPlayer, Phone {
+
+  public void clickPhoto(){
+    System.out.println("Photo clicked");
+  }
+
+  public void playMusic(){
+    System.out.println("Music playing");
+  }
+
+  public void makeCall(){
+    System.out.println("Calling...");
+  }
+}
+```
+
+---
+
+## ✔️ Main Class
+
+```java id="c5"
+public class Test {
+  public static void main(String[] args){
+
+    SmartPhone sp = new SmartPhone();
+
+    sp.clickPhoto();
+    sp.playMusic();
+    sp.makeCall();
+  }
+}
+```
+
+---
+
+## 🔍 Output
+
+```text id="c6"
+Photo clicked
+Music playing
+Calling...
+```
+
+---
+
+## 🤯 What Happened?
+
+* `SmartPhone` implements:
+
+  * Camera
+  * MusicPlayer
+  * Phone
+
+👉 So it gets **all functionalities**
+
+---
+
+## 🧠 Key Concept
+
+```java
+class SmartPhone implements Camera, MusicPlayer, Phone
+```
+
+👉 Means:
+
+> One class can follow rules of multiple interfaces
+
+---
+
+## 🎯 Benefits of Interface
+
+* ✔ Supports multiple inheritance
+* ✔ Enforces structure
+* ✔ Loose coupling (flexible code)
+* ✔ Easy to extend
+
+---
+
+## 👶 Simple Analogy
+
+Interface = Rules 📜
+
+* Camera → must click
+* Music → must play
+* Phone → must call
+
+👉 SmartPhone follows all rules
+
+---
+
+## 💬 Interview Line
+
+> “An interface is a blueprint for a class that defines abstract methods, allowing a class to implement multiple behaviors and achieve abstraction and multiple inheritance.”
+
+---
+
+## 🚀 Final Summary
+
+* Interface = blueprint for class
+* Achieves abstraction
+* Allows multiple inheritance
+* Class implements multiple interfaces 👍
+
+
+<a id="-java-oop---abstract-vs-interface"></a>
+<a id="abstract-vs-interface"></a>
+# ☕ Java OOP — Abstract Class vs Interface
+## 🧠 Goal
+
+👉 Understand **WHEN to use Abstract Class**
+👉 Understand **WHEN to use Interface**
+
+---
+
+# 🧱 Abstract Class — Real-Life Example
+
+## 📌 Scenario: Vehicle System 🚗
+
+All vehicles have:
+
+* Engine
+* Fuel
+* Common behavior like `start()`
+
+But:
+
+* Car 🚗 starts differently
+* Bike 🏍️ starts differently
+
+---
+
+## ✔️ Why Abstract Class?
+
+👉 Because:
+
+* Some logic is **common**
+* Some logic is **different**
+
+---
+
+## ✔️ Example
+
+```java id="veh1"
+abstract class Vehicle {
+
+  void fuelType(){
+    System.out.println("Vehicle uses fuel");
+  }
+
+  abstract void start(); // different for each vehicle
+}
+```
+
+---
+
+```java id="veh2"
+class Car extends Vehicle {
+  void start(){
+    System.out.println("Car starts with key");
+  }
+}
+```
+
+---
+
+```java id="veh3"
+class Bike extends Vehicle {
+  void start(){
+    System.out.println("Bike starts with kick");
+  }
+}
+```
+
+---
+
+## 🎯 Why Abstract Here?
+
+* ✔ Common code reused (`fuelType`)
+* ✔ Specific behavior forced (`start`)
+* ✔ Logical hierarchy (Vehicle → Car/Bike)
+
+---
+
+# 📜 Interface — Real-Life Example
+
+## 📌 Scenario: SmartPhone Features 📱
+
+A smartphone can:
+
+* Take photos 📷
+* Play music 🎵
+* Make calls 📞
+
+👉 These are **independent features**
+
+---
+
+## ✔️ Why Interface?
+
+👉 Because:
+
+* No common base logic
+* Only **capabilities (features)**
+* Multiple features needed
+
+---
+
+## ✔️ Example
+
+```java id="int1"
+package com.rcs.javalearning.datatypes.interfaces;
+
+public interface Calling{
+    public void callingPhone(String args);
+}
+```
+
+Simarily, we can create `Camera` and `MusicPlayer` interfaces with their own methods as below.
+
+```java
+package com.rcs.javalearning.datatypes.interfaces;
+
+public interface Camera{
+    public void clickPhoto(String args);
+}
+```
+
+```java
+package com.rcs.javalearning.datatypes.interfaces;
+
+public interface MusicPlayer{
+    public void playMusic(String args);
+}
+```
+
+---
+
+```java id="int2"
+package com.rcs.javalearning.datatypes;
+import com.rcs.javalearning.datatypes.interfaces.Calling;
+import com.rcs.javalearning.datatypes.interfaces.Camera;
+import com.rcs.javalearning.datatypes.interfaces.MusicPlayer;
+
+public class SmartPhone implements Camera, Calling, MusicPlayer {
+
+    @Override
+    public void clickPhoto(String args) {
+        System.out.println(args + " is clicking photo");
+    }
+
+    @Override
+    public void callingPhone(String args){
+        System.out.println(args + " is calling");
+    }
+
+    @Override
+    public void playMusic(String args){
+        System.out.println(args + " is playing music");
+    }
+}
+```
+
+---
+
+## 🎯 Why Interface Here?
+
+* ✔ Multiple features
+* ✔ No shared logic
+* ✔ Flexible design
+
+---
+
+# ⚔️ Final Comparison
+
+| Use Case                   | Abstract Class | Interface |
+| -------------------------- | -------------- | --------- |
+| Common base + shared logic | ✅              | ❌         |
+| Only define capabilities   | ❌              | ✅         |
+| Single inheritance         | ✅              | ❌         |
+| Multiple features          | ❌              | ✅         |
+
+---
+
+# 👶 Simple Analogy
+
+* Abstract Class = Family 👨‍👩‍👦
+* Interface = Skills 🎯
+
+---
+
+# 🧠 Final Understanding
+
+👉 Use **Abstract Class** when:
+
+* You have **common base logic**
+* You want **inheritance hierarchy**
+
+---
+
+👉 Use **Interface** when:
+
+* You need **multiple features**
+* You want **flexibility**
+
+---
+
+# 💬 Interview Answer
+
+> “Abstract classes are used when classes share common state and behavior, while interfaces are used to define capabilities that can be implemented by multiple unrelated classes.”
+
+---
+
+# 🚀 Final Summary
+
+* Abstract = “What you ARE”
+* Interface = “What you CAN DO”
+
+👉 **Abstract = Structure | Interface = Capability 👍**
+
+<a id="-java-oop---static-default-methods-in-interface"></a>
+# ☕ Java OOP — Static & Default Methods in Interface
+
+---
+
+## 📌 Why These Exist?
+
+Earlier in Java, interfaces could only have **abstract methods**.
+
+But, Now they can also have:
+
+* ✔ **Default methods** (with body)
+* ✔ **Static methods** (with body)
+
+👉 This makes interfaces more powerful and flexible
+
+---
+
+# ⚙️ 1. Default Methods in Interface
+
+---
+
+## 🧠 What is Default Method?
+
+> A **default method** is a method inside an interface that has a body and can be used directly by implementing classes.
+
+---
+
+## 👶 Simple Definition
+
+👉 “Interface gives a **default behavior**, but class can override it”
+
+---
+
+## 🧠 Real-Life Example — Smart Devices 📱
+
+All devices can:
+
+* Turn ON 🔌
+
+👉 Default behavior is same, but can be customized
+
+---
+
+## ✔️ Example
+
+```java
+interface Device {
+  default void turnOn(){
+    System.out.println("Device is turning ON");
+  }
+}
+```
+
+---
+
+```java
+class Phone implements Device {
+  // using default method
+}
+```
+
+---
+
+```java
+public class Test {
+  public static void main(String[] args){
+    Phone p = new Phone();
+    p.turnOn(); // default method used
+  }
+}
+```
+
+---
+
+## 🔍 Output
+
+```
+Device is turning ON
+```
+
+---
+
+## 🤯 Override Default Method
+
+```java
+class Phone implements Device {
+  @Override
+  public void turnOn(){
+    System.out.println("Phone is turning ON");
+  }
+}
+```
+
+---
+
+# ⚙️ 2. Static Methods in Interface
+
+---
+
+## 🧠 What is Static Method?
+
+> A **static method** belongs to the interface itself and cannot be overridden.
+
+---
+
+## 👶 Simple Definition
+
+👉 “Utility method inside interface”
+
+---
+
+## 🧠 Real-Life Example — Payment System 💳
+
+You want a **common validation method**
+
+👉 Same for all → no need to override
+
+---
+
+## ✔️ Example
+
+```java
+interface Payment {
+
+  static void validate(){
+    System.out.println("Validating payment...");
+  }
+}
+```
+
+---
+
+```java
+public class Test {
+  public static void main(String[] args){
+
+    Payment.validate(); // called using interface name
+  }
+}
+```
+
+---
+
+## 🔍 Output
+
+```
+Validating payment...
+```
+
+---
+
+# ⚠️ Important Rule
+
+```java
+Payment.validate(); // ✅ correct
+```
+
+```java
+p.validate(); // ❌ wrong
+```
+
+👉 Static methods are NOT called using object
+
+---
+
+# ⚔️ Difference: Default vs Static
+
+| Feature      | Default Method   | Static Method  |
+| ------------ | ---------------- | -------------- |
+| Belongs to   | Object           | Interface      |
+| Can override | ✅ Yes            | ❌ No           |
+| Called using | Object           | Interface name |
+| Purpose      | Default behavior | Utility/helper |
+
+---
+
+# 👶 Simple Analogy
+
+* Default method = “Standard feature” 📱
+* Static method = “Tool/utility” 🔧
+
+---
+
+# 🎯 When to Use
+
+👉 Use **Default**:
+
+* When most classes share behavior
+* But some may change it
+
+👉 Use **Static**:
+
+* For common utility logic
+* No need to override
+
+---
+
+# 💬 Interview Line
+
+> “Default methods in interfaces provide a method implementation that can be overridden by implementing classes, while static methods belong to the interface and are called using the interface name and cannot be overridden.”
+
+---
+
+# 🚀 Final Summary
+
+* Default → customizable behavior
+* Static → fixed utility method
+* Both improve interface flexibility 👍
+
