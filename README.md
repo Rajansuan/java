@@ -640,34 +640,30 @@ mycar1.speed = "-999";
 package com.rcs.javalearning.datatypes;
 
 public class Car {
+    private String name; //we have to make it private to that there will be no direct access control outside this class
+    String speed;
+    String color;
 
-  // 🔒 Private variables (hidden data)
-  private String name;
-  private String speed;
-  private String color;
-
-  // ✅ Constructor
-  public Car(String name, String speed, String color){
-    this.name = name;
-    this.speed = speed;
-    this.color = color;
-  }
-
-  // ✅ Getter (read data)
-  public String getName(){
-    return name;
-  }
-
-  // ✅ Setter (update data with control)
-  public void setName(String name){
-    if(name != null && !name.isEmpty()){
-      this.name = name;
+    //Constructor function
+    public Car(String args1, String args2, String args3){
+        this.name = args1; //whatever object we are talking about here, set its name as args1
+        this.speed = args2;
+        this.color = args3;
     }
-  }
 
-  public void drive(){
-    System.out.println(name + " is driving");
-  }
+    //Setter function
+    void setName(String newName){
+        this.name = newName; //We are setting the neew name here
+    }
+
+    //Getter function i.e why it is public
+    public String getName(){
+        return name; //returning the name as a string
+    }
+
+    void drive(){
+        System.out.println( name + " is driving");
+    }
 }
 ```
 
@@ -679,23 +675,31 @@ public class Car {
 package com.rcs.javalearning.datatypes;
 
 public class Test {
-  public static void main(String[] args){
-
-    Car mycar1 = new Car("Bugatti", "100kmp", "Black");
-
-    // ❌ Direct access not allowed
-    // mycar1.name = "BMW"; // ERROR
-
-    // ✅ Controlled access
-    mycar1.setName("BMW");
-
-    System.out.println(mycar1.getName());
-
-    mycar1.drive();
-  }
+    public static void main(String[] args){
+        Car mycar1 = new Car("Bugatti", "100kmp", "Black");
+        
+        //If i write as below, then anyone is editing this car name from Bugatti to Tesla, which is wrong
+            //mycar1.name = "Tesla"; 
+        // So that is why, we will make the "name" as private in parent class and will user setter function
+        
+        //first get name using getter function written in parent class Car.java->
+        String carName = mycar1.getName();
+        System.out.println("Original car name -" + carName);
+        
+        //now calling setter function to set the name ->
+        mycar1.setName("Tesla - Electric");
+        
+        mycar1.drive();
+    }
 }
-```
 
+```
+---
+## Output-
+Original car name -Bugatti </br>
+Tesla - Electric is driving
+
+<p>(As you can see, we are able to change the name of the car from Bugatti to Tesla, but we are doing it through setter function, which is a controlled way to change the data. We can also add validation inside setter function to prevent invalid data.)</p>
 ---
 
 ## 🔐 What Changed?
@@ -805,12 +809,11 @@ class Cat {
 ### ✔️ Parent Class (Animal.java)
 
 ```java
-package com.rcs.javalearning.oops;
+package com.rcs.javalearning.datatypes;
 
 public class Animal {
-
-    void eat(){
-        System.out.println("Animal is eating");
+    public void eat(String Animal){
+        System.out.println(Animal + " is eating");
     }
 }
 ```
@@ -818,11 +821,10 @@ public class Animal {
 ### ✔️ Child Class (Dog.java)
 
 ```java
-package com.rcs.javalearning.oops;
+package com.rcs.javalearning.datatypes;
 
 public class Dog extends Animal {
-
-    void bark(){
+    public void bark(){
         System.out.println("Dog is barking");
     }
 }
@@ -831,18 +833,22 @@ public class Dog extends Animal {
 ### ✔️ Main Class (Test.java)
 
 ```java
-package com.rcs.javalearning.oops;
+package com.rcs.javalearning.datatypes;
 
 public class Test {
     public static void main(String[] args){
-
-        Dog dog = new Dog();
-
-        dog.eat();   // inherited from Animal
-        dog.bark();  // its own method
+        Dog mydog1 = new Dog();
+        mydog1.eat("Dog");
+        mydog1.bark();
     }
 }
 ```
+
+---
+
+Below is the output:
+* Dog is eating
+* Dog is barking
 
 ---
 
@@ -852,6 +858,7 @@ public class Test {
 * So Dog gets:
   * `eat()` ✅ (from Animal)
   * `bark()` ✅ (its own)
+
 
 ---
 
