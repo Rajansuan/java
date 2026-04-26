@@ -19,9 +19,10 @@ Explained like never before -> Java from scratch to advanced — core concepts e
 - [4 pillars of OOP](#4-pillars-of-oop-🧩) 🧩
   - [Encapsulation (1st Pillar)](#-java-oop---encapsulation-1st-pillar-🔐) 🔐
   - [Inheritance (2nd Pillar)](#-java-oop---inheritance-2nd-pillar-🚀) 🚀
-  - [Multilevel Inheritance](#multilevel-inheritance) 🔁
-  - [Hierarchical Inheritance](#hierarchical-inheritance) 🌳
-  - [Why Java Does NOT Support Multiple Inheritance (Classes)](#why-java-does-not-support-multiple-inheritance) ❌
+    - [Multilevel Inheritance](#multilevel-inheritance) 🔁
+    - [Hierarchical Inheritance](#hierarchical-inheritance) 🌳
+    - [Why Java Does NOT Support Multiple Inheritance (Classes)](#why-java-does-not-support-multiple-inheritance) ❌
+  - [Polymorphism (3rd Pillar)](#-java-oop---polymorphism-3rd-pillar-🧠) 🧠
 
 
 ---
@@ -499,9 +500,7 @@ public class Test {
 
 ---
 
-## 🔁 Related: Understanding Object Data & Variables (moved here)
-
-### 📌 Your Code
+## Understanding Object Data & Variables
 
 #### Test.java
 
@@ -572,9 +571,7 @@ public class Car {
 * ✅ Use constructors to pass and store initial values.  
 * ✅ Methods can use stored values — no need to pass them again.  
 * ✅ Prefer private fields + getters/setters when controlling data (see Encapsulation section).
-
 ---
-
 #  
 <a id="4-pillars-of-oop-🧩"></a>
 # <a id="-java-oop---encapsulation-1st-pillar-🔐"></a>
@@ -656,7 +653,7 @@ public class Car {
     }
 
     //Setter function
-    void setName(String newName){
+    public void setName(String newName){
         this.name = newName; //We are setting the neew name here
     }
 
@@ -665,7 +662,7 @@ public class Car {
         return name; //returning the name as a string
     }
 
-    void drive(){
+    public void drive(){
         System.out.println( name + " is driving");
     }
 }
@@ -1387,6 +1384,197 @@ class SmartPhone extends Phone
 ## 💬 Interview Line
 
 > “Java does not support multiple inheritance using classes to avoid ambiguity and method conflicts (diamond problem), ensuring code simplicity and clarity. This limitation is overcome using interfaces.”
+
+<a id="-java-oop---polymorphism-3rd-pillar-🧠"></a>
+<a id="polymorphism"></a>
+<a id="polymorphism-3rd-pillar"></a>
+# ☕ Java OOP — Polymorphism (3rd Pillar)
+
+---
+
+## 📌 What is Polymorphism?
+
+* **Poly** = Many
+* **Morph** = Forms
+
+👉 **Polymorphism = Many Forms**
+
+---
+
+## 👶 Simple Definition
+
+> **Polymorphism allows methods to perform different tasks based on how they are called.**
+
+---
+
+## ⚙️ Types of Polymorphism
+
+1. **Compile-Time Polymorphism** → Method Overloading
+2. **Runtime Polymorphism** → Method Overriding 
+
+---
+
+# 🧠 Compile-Time Polymorphism
+
+👉 Decided at **compile time**
+👉 Based on **method parameters**
+
+---
+
+## 👶 Simple Example (Calculator)
+
+```java
+class Calculator {
+
+  // 2 parameters
+  int add(int a, int b){
+    return a + b;
+  }
+
+  // 3 parameters
+  int add(int a, int b, int c){
+    return a + b + c;
+  }
+}
+```
+
+---
+
+## ✔️ Main Class
+
+```java
+public class Test {
+  public static void main(String[] args){
+
+    Calculator calc = new Calculator();
+
+    System.out.println(calc.add(2, 3));        // calls 2 param method
+    System.out.println(calc.add(2, 3, 4));     // calls 3 param method
+  }
+}
+```
+
+---
+
+## 🔍 Output
+
+```
+5
+9
+```
+
+---
+
+## 🧠 How Compiler Decides?
+
+👉 Based on:
+
+* Number of parameters
+* Type of parameters
+* Order of parameters
+
+---
+
+# 📌 Method Overloading Definition
+
+> **Method Overloading is a feature where multiple methods have the same name but different parameters (number, type, or order).**
+
+---
+
+# ⚙️ Types of Overloading
+
+---
+
+## 1️⃣ Different Number of Parameters
+
+```java
+int add(int a, int b)
+int add(int a, int b, int c)
+```
+
+---
+
+## 2️⃣ Different Type of Parameters
+
+```java
+int add(int a, int b){
+  return a + b;
+}
+
+double add(double a, double b){
+  return a + b;
+}
+```
+
+---
+
+## 3️⃣ Different Order of Parameters
+
+```java
+void display(int a, String b){
+  System.out.println("int then string");
+}
+
+void display(String b, int a){
+  System.out.println("string then int");
+}
+```
+
+---
+
+## ✔️ Main Example
+
+```java
+public class Test {
+  public static void main(String[] args){
+
+    Demo d = new Demo();
+
+    d.display(10, "Hello");   // int, String
+    d.display("Hello", 10);   // String, int
+  }
+}
+```
+
+---
+
+# ❌ Important Rule
+
+👉 You **CANNOT overload** only by changing return type
+
+```java
+// ❌ INVALID
+int add(int a, int b)
+double add(int a, int b)
+```
+
+👉 Compiler will give error
+
+---
+
+# 🎯 Final Understanding
+
+* Same method name ✅
+* Different parameters ✅
+* Compiler decides which method to call
+
+---
+
+# 👶 Simple Analogy
+
+👉 Same person, different roles:
+
+* Add 2 numbers → simple addition
+* Add 3 numbers → extended addition
+
+👉 Same function name, different behavior
+
+---
+
+# 💬 Interview Line
+
+> “Compile-time polymorphism is achieved using method overloading, where multiple methods have the same name but differ in parameters, and the compiler determines which method to invoke.”
+
 
 
 
