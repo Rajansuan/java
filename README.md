@@ -30,6 +30,7 @@ Explained like never before -> Java from scratch to advanced — core concepts e
     - [Abstract Class vs Interface](#abstract-vs-interface) ⚔️
     - [Static & Default Methods in Interface](#-java-oop---static-default-methods-in-interface) ⚡
 - [Access Modifiers](#access-modifiers) 🔐
+- [Multithreading](#multithreading) 🧵
 ---
 
 ## Basics
@@ -2805,3 +2806,421 @@ class Car {
 
 👉 **Access Modifiers = Control Visibility 👍**
 
+<hr>
+
+<a id="multithreading"></a>
+
+# ☕ Java — Multithreading (Basics)
+
+---
+
+## 🧠 CPU (Central Processing Unit)
+
+> **CPU is the brain of the computer** 🧠
+
+* Executes instructions from programs
+* Performs calculations, input/output operations
+
+---
+
+## ⚙️ What is a Core?
+
+> **Core = Individual processing unit inside CPU**
+
+* Modern CPUs have multiple cores
+* Each core can run tasks independently
+
+👉 Example:
+
+* **Quad-core CPU** → 4 tasks at same time
+
+---
+
+## 📌 What is a Program?
+
+> **Program = Set of instructions written in a programming language**
+
+👉 Example:
+
+* Microsoft Word → used to create/edit documents
+
+---
+
+## 📌 What is a Process?
+
+> **Process = Running instance of a program**
+
+👉 When you open MS Word:
+
+* OS creates a **process**
+
+---
+
+## 📌 What is a Thread?
+
+> **Thread = Smallest unit of execution inside a process**
+
+* A process can have multiple threads
+* Threads share same memory/resources
+* Can run independently
+
+---
+
+## 👶 Example
+
+👉 Google Chrome 🌐
+
+* Each tab = separate thread
+* All inside one process
+
+---
+
+# ⚙️ Multitasking vs Multithreading
+
+---
+
+## 🧠 Multitasking (OS Level)
+
+> Running multiple processes simultaneously
+
+👉 Example:
+
+* Chrome + Word + Music Player running together
+
+---
+
+## 🧠 Multithreading (Within Process)
+
+> Running multiple threads inside one process
+
+👉 Example:
+
+* Chrome → multiple tabs
+
+---
+
+## ⚔️ Difference Table
+
+| Feature | Multitasking  | Multithreading |
+| ------- | ------------- | -------------- |
+| Level   | OS level      | Process level  |
+| Unit    | Process       | Thread         |
+| Example | Chrome + Word | Tabs in Chrome |
+
+---
+
+# ⚙️ What is Multithreading?
+
+> **Multithreading = Running multiple threads within a single process concurrently**
+
+---
+
+## 🎯 Benefits
+
+* ✔ Better performance
+* ✔ Faster execution
+* ✔ Improved responsiveness
+
+---
+
+# ☕ Multithreading in Java
+
+---
+
+## 📌 Key Point
+
+👉 Java has built-in support for multithreading
+
+👉 Available in:
+
+```java id="p7x8k1"
+java.lang package
+```
+
+---
+
+## 🧠 Single-Core Environment
+
+* Only one core available
+* Threads don’t run truly parallel
+* JVM + OS switch between threads
+
+👉 This is called:
+
+> **Context Switching / Time Slicing**
+
+---
+
+## ⏱️ Time Slicing
+
+> CPU gives small time to each thread
+
+👉 Creates illusion of parallel execution
+
+---
+
+## 🧠 Multi-Core Environment
+
+* Multiple cores available
+* Threads can run **truly parallel**
+
+👉 JVM distributes threads across cores
+
+---
+
+# 🔥 Key Understanding
+
+| Environment | Execution              |
+| ----------- | ---------------------- |
+| Single Core | Concurrency (illusion) |
+| Multi Core  | True Parallelism       |
+
+---
+
+# 👶 Simple Analogy
+
+👉 Chef 🍳 in kitchen:
+
+* Single chef → cooks dishes one by one quickly (time slicing)
+* Multiple chefs → cook simultaneously (parallelism)
+
+---
+
+# 💬 Interview Line
+
+> “Multithreading in Java allows multiple threads to execute concurrently within a process, improving performance and responsiveness. In single-core systems it uses time-slicing, while in multi-core systems it achieves true parallel execution.”
+
+---
+
+# 🚀 Quick Summary
+
+* Program → Instructions
+* Process → Running program
+* Thread → Small execution unit
+* Multitasking → Multiple processes
+* Multithreading → Multiple threads
+
+👉 **Multithreading = Better performance + responsiveness 👍**
+
+# ☕ Java Multithreading — Thread Creation & Synchronization
+
+---
+
+## 🧠 What is a Thread?
+
+> **Thread = smallest unit of execution (lightweight process)**
+
+* Runs inside a process
+* Shares memory/resources
+* Java supports multithreading using `java.lang.Thread`
+
+---
+
+## 📌 Main Thread
+
+👉 When a Java program starts:
+
+* A **main thread** starts automatically
+* It executes the `main()` method
+
+---
+
+## 🔍 Get Current Thread Name
+
+```java id="t1"
+System.out.println(Thread.currentThread().getName());
+```
+
+---
+
+# ⚙️ Ways to Create Threads
+
+---
+
+## 1️⃣ Extending Thread Class
+
+```java id="t2"
+class MyThread1 extends Thread {
+  public void run(){
+    System.out.println("Thread 1 running: " + Thread.currentThread().getName());
+  }
+}
+```
+
+---
+
+## 2️⃣ Implementing Runnable Interface
+
+```java id="t3"
+class MyThread2 implements Runnable {
+  public void run(){
+    System.out.println("Thread 2 running: " + Thread.currentThread().getName());
+  }
+}
+```
+
+---
+
+# 🧪 Main Class Example
+
+```java id="t4"
+public class Test {
+  public static void main(String[] args) throws InterruptedException {
+
+    System.out.println("Main Thread: " + Thread.currentThread().getName());
+
+    // Thread using extends
+    MyThread1 thread1 = new MyThread1();
+
+    // Thread using Runnable
+    Thread thread2 = new Thread(new MyThread2());
+
+    thread1.start();
+    thread2.start();
+
+    // Wait for both threads to finish
+    thread1.join();
+    thread2.join();
+
+    System.out.println("Main thread finished");
+  }
+}
+```
+
+---
+
+# 🔍 Output (Example)
+
+```
+Main Thread: main
+Thread 1 running: Thread-0
+Thread 2 running: Thread-1
+Main thread finished
+```
+
+---
+
+# 🤯 What is join()?
+
+> `join()` makes main thread wait until other threads finish
+
+---
+
+# ⚠️ Shared Resource Problem
+
+---
+
+## ❌ Without Synchronization
+
+```java id="t5"
+class Counter {
+  int count = 0;
+
+  void increment(){
+    count++;
+  }
+}
+```
+
+👉 Multiple threads updating `count` → wrong result ❌
+
+---
+
+# ✅ Using synchronized
+
+```java id="t6"
+class Counter {
+  int count = 0;
+
+  synchronized void increment(){
+    count++;
+  }
+}
+```
+
+👉 Only one thread can access method at a time ✔
+
+---
+
+# 🧪 Shared Resource Example
+
+```java id="t7"
+class Counter {
+  int count = 0;
+
+  synchronized void increment(){
+    count++;
+  }
+}
+
+public class Test {
+  public static void main(String[] args) throws InterruptedException {
+
+    Counter counter = new Counter();
+
+    Thread t1 = new Thread(() -> {
+      for(int i=0; i<1000; i++){
+        counter.increment();
+      }
+    });
+
+    Thread t2 = new Thread(() -> {
+      for(int i=0; i<1000; i++){
+        counter.increment();
+      }
+    });
+
+    t1.start();
+    t2.start();
+
+    t1.join();
+    t2.join();
+
+    System.out.println("Final Count: " + counter.count);
+  }
+}
+```
+
+---
+
+## 🔍 Output
+
+```
+Final Count: 2000
+```
+
+---
+
+# 🧠 Why synchronized?
+
+* Prevents **race condition**
+* Ensures **thread safety**
+* Only one thread accesses critical section
+
+---
+
+# 🎯 Key Concepts
+
+* Thread → execution unit
+* start() → begins thread
+* join() → wait for completion
+* synchronized → control access
+
+---
+
+# 💬 Interview Line
+
+> “Threads can be created by extending Thread class or implementing Runnable interface. Synchronization ensures that shared resources are accessed safely by multiple threads.”
+
+---
+
+# 🚀 Final Summary
+
+* Create thread → `Thread` / `Runnable`
+* Run → `start()`
+* Wait → `join()`
+* Protect data → `synchronized`
+
+👉 **Multithreading = Concurrency + Control 👍**
+
+``` 
