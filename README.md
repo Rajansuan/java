@@ -29,7 +29,7 @@ Explained like never before -> Java from scratch to advanced — core concepts e
     - [Interface](#interface) 🧩
     - [Abstract Class vs Interface](#abstract-vs-interface) ⚔️
     - [Static & Default Methods in Interface](#-java-oop---static-default-methods-in-interface) ⚡
-
+- [Access Modifiers](#access-modifiers) 🔐
 ---
 
 ## Basics
@@ -2702,4 +2702,106 @@ p.validate(); // ❌ wrong
 * Default → customizable behavior
 * Static → fixed utility method
 * Both improve interface flexibility 👍
+
+
+---
+<a id="access-modifiers"></a>
+# ☕ Java OOP — Access Modifiers
+
+---
+
+## 📌 What are Access Modifiers?
+
+> **Access Modifiers control the visibility (who can access) of classes, variables, and methods.**
+
+---
+
+## 🧠 Types of Access Modifiers
+
+1. **public**
+2. **private**
+3. **protected**
+4. **default (no keyword)**
+
+---
+
+# ⚙️ 1. public
+
+👉 Accessible **from anywhere**
+
+```java
+public class Car {
+  public String name;
+}
+```
+
+✔ Any class from any package can use it
+
+---
+
+# ⚙️ 2. private
+
+👉 Accessible **only within the same class**
+
+```java
+class Car {
+  private String name;
+}
+```
+
+✔ Cannot be accessed outside the class
+
+---
+
+# ⚙️ 3. protected
+
+👉 Accessible:
+
+* Within same package
+* In subclasses (even in different package)
+
+```java
+class Car {
+  protected String name;
+}
+```
+
+---
+
+# ⚙️ 4. default (no modifier)
+
+👉 Accessible **only within same package**
+
+```java
+class Car {
+  String name; // default
+}
+```
+
+---
+
+# 📊 Access Modifier Table
+
+| Modifier  | Same Class | Same Package | Subclass (Other Package) | Other Package |
+| --------- | ---------- | ------------ | ------------------------ | ------------- |
+| public    | ✅          | ✅            | ✅                        | ✅             |
+| protected | ✅          | ✅            | ✅                        | ❌             |
+| default   | ✅          | ✅            | ❌                        | ❌             |
+| private   | ✅          | ❌            | ❌                        | ❌             |
+---
+
+# 💬 Interview Line
+
+> “Access modifiers in Java define the scope of visibility of variables and methods. Private restricts access within the class, while protected allows access within the package and to subclasses.”
+
+---
+
+# 🚀 Final Summary
+
+* public → open for all 🌍
+* private → only inside class 🔒
+* protected → family + subclass 🛡️
+* default → same package only 📦
+
+👉 **Access Modifiers = Control Visibility 👍**
 
