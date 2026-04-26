@@ -19,6 +19,9 @@ Explained like never before -> Java from scratch to advanced — core concepts e
 - [4 pillars of OOP](#4-pillars-of-oop-🧩) 🧩
   - [Encapsulation (1st Pillar)](#-java-oop---encapsulation-1st-pillar-🔐) 🔐
   - [Inheritance (2nd Pillar)](#-java-oop---inheritance-2nd-pillar-🚀) 🚀
+  - [Multilevel Inheritance](#multilevel-inheritance) 🔁
+  - [Hierarchical Inheritance](#hierarchical-inheritance) 🌳
+  - [Why Java Does NOT Support Multiple Inheritance (Classes)](#why-java-does-not-support-multiple-inheritance) ❌
 
 
 ---
@@ -99,6 +102,7 @@ javac -version
 OOP stands for **Object Oriented Programming**.
 
 Think of the real world — everything around you is an **object**:
+<a id="single-level-inheritance"></a>
 - A Dog has a name, color, age → and can bark, eat, run
 - A Car has a brand, color, speed → and can drive, stop, honk
 
@@ -804,7 +808,10 @@ class Cat {
 
 ---
 
-## ✅ Using Inheritance
+## ✅ Using Inheritance -
+
+# This is a -> Single Level Inheritance
+One class (Dog) inherits from another class (Animal)
 
 ### ✔️ Parent Class (Animal.java)
 
@@ -897,10 +904,489 @@ class Dog extends Animal
 > “Inheritance is an OOP concept where one class acquires the properties and methods of another class using the extends keyword, enabling code reuse and hierarchical relationships.”
 
 ---
-
-## 🚀 Final Summary
-
 👉 Write once, reuse everywhere 👍
+
+
+<a id="multilevel-inheritance"></a>
+<a id="multilevel"></a>
+# ☕ Java OOP — Multilevel Inheritance
+
+---
+
+## 📌 What is Multilevel Inheritance?
+
+**Multilevel Inheritance** means:
+
+> A class inherits from a parent class, and that parent class itself inherits from another class.
+
+---
+
+## 👶 Simple Definition
+
+👉 **“Child → Parent → Grandparent chain”**
+
+---
+
+## 🧠 Real-Life Understanding
+
+Think of a family:
+
+* Grandparent 👴
+* Parent 👨
+* Child 👦
+
+👉 Child gets:
+
+* Features from Parent
+* Features from Grandparent
+
+---
+
+## ⚙️ Structure
+
+```java
+Grandparent → Parent → Child
+```
+
+---
+
+## ✅ Example (Animal → Dog → Puppy)
+
+---
+
+### ✔️ Grandparent Class (Animal.java)
+
+```java
+package com.rcs.javalearning.datatypes;
+
+public class Animal {
+  public void eat(String name){
+    System.out.println(name + " is eating");
+  }
+}
+```
+
+---
+
+### ✔️ Parent Class (Dog.java)
+
+```java
+package com.rcs.javalearning.datatypes;
+
+public class Dog extends Animal {
+  public void bark(){
+    System.out.println("Dog is barking");
+  }
+}
+```
+
+---
+
+### ✔️ Child Class (Puppy.java)
+
+```java
+package com.rcs.javalearning.datatypes;
+
+public class Puppy extends Dog {
+  public void weep(){
+    System.out.println("Puppy is weeping");
+  }
+}
+```
+
+---
+
+### ✔️ Main Class (Test.java)
+
+```java
+package com.rcs.javalearning.datatypes;
+
+public class Test {
+  public static void main(String[] args){
+
+    Puppy mypuppy = new Puppy();
+
+    mypuppy.eat("Puppy");  // now uses parameter
+    mypuppy.bark();        
+    mypuppy.weep();        
+  }
+}
+```
+
+---
+
+## 🔍 Output
+
+```
+Puppy is eating
+Dog is barking
+Puppy is weeping
+```
+
+---
+
+## 🔎 What Happened?
+
+* `Puppy` extends `Dog`
+* `Dog` extends `Animal`
+
+👉 So Puppy gets:
+
+* `eat(String name)` ✅ (from Animal)
+* `bark()` ✅ (from Dog)
+* `weep()` ✅ (its own)
+
+---
+
+## 🧠 Key Concept
+
+```java
+class Puppy extends Dog
+class Dog extends Animal
+```
+
+👉 Means:
+
+> Puppy is a Dog, and Dog is an Animal
+
+---
+
+## 🎯 Benefits of Multilevel Inheritance
+
+* ✔ Code reuse at multiple levels
+* ✔ Logical hierarchy
+* ✔ Easy to extend
+
+---
+
+## 👶 Simple Analogy
+
+* Animal = Grandparent 👴
+* Dog = Parent 👨
+* Puppy = Child 👦
+
+👉 Child gets everything from both
+
+---
+
+## 💬 Interview Line
+
+> “Multilevel inheritance is a type of inheritance where a class inherits from another class, which itself inherits from a third class, forming a chain of inheritance.”
+
+---
+
+
+<a id="hierarchical-inheritance"></a>
+<a id="hierarchical"></a>
+# ☕ Java OOP — Hierarchical Inheritance
+
+---
+
+## 📌 What is Hierarchical Inheritance?
+
+**Hierarchical Inheritance** means:
+
+> **Multiple child classes inherit from the same parent class**
+
+---
+
+## 👶 Simple Definition
+
+👉 **“One Parent → Many Children”**
+
+---
+
+## 🧠 Real-Life Understanding
+
+Think:
+
+* Animal 🐾 (Parent)
+* Dog 🐶 (Child)
+* Cat 🐱 (Child)
+
+👉 Both Dog and Cat:
+
+* Can **eat** (common behavior from Animal)
+* Have their **own behaviors**
+
+---
+
+## ⚙️ Structure
+
+```java id="l3k9pt"
+    Animal
+    /    \
+   Dog     Cat
+```
+
+---
+
+## ✅ Example
+
+---
+
+### ✔️ Parent Class (Animal.java)
+
+```java id="c2q8xv"
+package com.rcs.javalearning.datatypes;
+
+public class Animal {
+  public void eat(String name){
+    System.out.println(name + " is eating");
+  }
+}
+```
+
+---
+
+### ✔️ Child Class 1 (Dog.java)
+
+```java id="v7n2dw"
+package com.rcs.javalearning.datatypes;
+
+public class Dog extends Animal {
+  public void bark(String name){
+    System.out.println(name + " is barking");
+  }
+}
+```
+
+---
+
+### ✔️ Child Class 2 (Cat.java)
+
+```java id="r4k1mz"
+package com.rcs.javalearning.datatypes;
+
+public class Cat extends Animal {
+  public void meow(String name){
+    System.out.println(name + " is meowing");
+  }
+}
+```
+
+---
+
+### ✔️ Main Class (Test.java)
+
+```java id="k5p9yj"
+package com.rcs.javalearning.datatypes;
+
+public class Test {
+  public static void main(String[] args){
+
+    Dog dog = new Dog();
+    dog.eat("Dog");
+    dog.bark("Dog");
+
+    System.out.println();
+
+    Cat cat = new Cat();
+    cat.eat("Cat");
+    cat.meow("Cat");
+  }
+}
+```
+
+---
+
+## 🔍 Output
+
+```id="q8f2zx"
+Dog is eating
+Dog is barking
+
+Cat is eating
+Cat is meowing
+```
+
+---
+
+## 🔎 What Happened?
+
+* `Dog` extends `Animal`
+* `Cat` extends `Animal`
+
+👉 Both reuse:
+
+* `eat()` from Animal
+
+👉 And have their own:
+
+* `bark()`
+* `meow()`
+
+---
+
+## 🧠 Key Concept
+
+```java id="m1x7dp"
+class Dog extends Animal
+class Cat extends Animal
+```
+
+👉 Means:
+
+> Multiple classes share same parent
+
+---
+
+## 🎯 Benefits
+
+* ✔ Code reuse
+* ✔ Avoid duplication
+* ✔ Easy to manage common behavior
+
+---
+
+## 👶 Simple Analogy
+
+* Parent = Animal 👨
+* Children = Dog 🐶, Cat 🐱
+
+👉 Both children inherit common traits
+
+---
+
+## 💬 Interview Line
+
+> “Hierarchical inheritance is a type of inheritance where multiple child classes inherit from a single parent class, allowing reuse of common functionality.”
+
+---
+
+<a id="why-java-does-not-support-multiple-inheritance"></a>
+<a id="multiple-inheritance"></a>
+<a id="multiple-inheritance-classes"></a>
+# ☕ Java OOP — Why Java Does NOT Support Multiple Inheritance (Classes)
+
+---
+
+## 📌 What is Multiple Inheritance?
+
+**Multiple Inheritance** means:
+
+> A class tries to inherit from **more than one parent class**
+
+---
+
+## 🧠 Example Scenario
+
+We have different classes:
+
+* 📷 `Camera` → takes photos
+* 🎵 `MusicPlayer` → plays music
+* 📞 `Phone` → makes calls
+
+Now we want:
+
+👉 A `SmartPhone` class that has **all features**
+
+---
+
+## ❌ What We Want to Do (Not Allowed in Java)
+
+```java
+class SmartPhone extends Camera, MusicPlayer, Phone {
+}
+```
+
+👉 ❌ Java does NOT allow this
+
+---
+
+## 🤯 Why Java Does NOT Support This?
+
+### ⚠️ Problem: Method Conflict (Diamond Problem)
+
+Assume all classes have same method:
+
+```java
+class Camera {
+  void turnOn(){
+    System.out.println("Camera turning on");
+  }
+}
+
+class MusicPlayer {
+  void turnOn(){
+    System.out.println("Music Player turning on");
+  }
+}
+
+class Phone {
+  void turnOn(){
+    System.out.println("Phone turning on");
+  }
+}
+```
+
+---
+
+## ❓ Now Problem
+
+If Java allowed:
+
+```java
+class SmartPhone extends Camera, MusicPlayer, Phone
+```
+
+Then:
+
+```java
+SmartPhone s = new SmartPhone();
+s.turnOn();
+```
+
+👉 ❓ Which `turnOn()` should run?
+
+* Camera’s? 📷
+* MusicPlayer’s? 🎵
+* Phone’s? 📞
+
+👉 Java gets **confused**
+
+---
+
+## 🚨 This is called
+
+> **Ambiguity Problem (Diamond Problem)**
+
+---
+
+## 🧠 Key Reason
+
+👉 Java avoids multiple inheritance in classes to:
+
+* ❌ Prevent confusion
+* ❌ Avoid ambiguity
+* ❌ Keep code simple and predictable
+
+---
+
+## ✅ What Java Allows
+
+👉 Only:
+
+```java
+class SmartPhone extends Phone
+```
+
+👉 One parent only
+
+---
+
+## ⚡ Important Note
+
+👉 This problem **can be solved using Interfaces**
+
+✔ Interfaces allow multiple inheritance
+✔ No ambiguity (we will study below)
+
+---
+
+## 💬 Interview Line
+
+> “Java does not support multiple inheritance using classes to avoid ambiguity and method conflicts (diamond problem), ensuring code simplicity and clarity. This limitation is overcome using interfaces.”
 
 
 
