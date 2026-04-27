@@ -31,6 +31,7 @@ Explained like never before -> Java from scratch to advanced — core concepts e
     - [Static & Default Methods in Interface](#-java-oop---static-default-methods-in-interface) ⚡
 - [Access Modifiers](#access-modifiers) 🔐
 - [Multithreading](#multithreading) 🧵
+- [Collections Framework](#collections-framework) 📚
 ---
 
 ## Basics
@@ -3223,4 +3224,382 @@ Final Count: 2000
 
 👉 **Multithreading = Concurrency + Control 👍**
 
-``` 
+
+<a id='collections-framework'></a>
+
+# ☕ Java Collection Framework — Beginner to Practical (List, Set, Map)
+
+> Explained simply with real examples — only what you need for backend & Spring Boot 🚀
+
+---
+
+<h3> 🧠 What is Collection Framework? </h3>
+
+> **Collection Framework = ready-made classes in Java to store and manage multiple objects**
+
+👉 Instead of fixed arrays, Java gives flexible structures like:
+
+* List
+* Set
+* Map
+
+---
+
+# Why not use Arrays?
+
+```java
+int[] arr = new int[2];
+```
+
+❌ Fixed size
+❌ Hard to manage
+
+👉 Collections solve this:
+
+```java
+List<Integer> list = new ArrayList<>();
+```
+
+✔ Dynamic
+✔ Easy to use
+
+---
+
+# 📦 1. List (MOST IMPORTANT)
+
+---
+
+# 🧠 Definition
+
+> **List = ordered collection that allows duplicates**
+
+---
+
+# Real-Life Example
+
+👉 Shopping List 🛒
+
+* Milk
+* Bread
+* Milk again
+
+✔ Order matters
+✔ Duplicate allowed
+
+---
+
+# ⚙️ Example
+
+```java
+import java.util.*;
+
+List<String> list = new ArrayList<>();
+
+list.add("Amazon");
+list.add("Flipkart");
+list.add("Amazon");
+
+System.out.println(list);
+```
+
+---
+
+# 🔍 Output
+
+```text
+[Amazon, Flipkart, Amazon]
+```
+
+---
+
+# 🔧 Basic Operations
+
+```java
+list.add("Myntra");     // add
+list.get(0);            // get element
+list.remove(1);         // remove by index
+list.size();            // size
+list.contains("Amazon"); // check
+```
+
+---
+
+## 🎯 When to Use List
+
+* Multiple values
+* Order matters
+* Duplicates allowed
+
+👉 Example:
+
+```java
+List<Shipment> shipments;
+```
+
+---
+
+# 📦 2. Set
+
+---
+
+## 🧠 Definition
+
+> **Set = collection that does NOT allow duplicates**
+
+---
+
+# Real-Life Example
+
+👉 Unique IDs 🪪
+
+* Aadhar
+* Passport
+
+❌ No duplicates allowed
+
+---
+
+## ⚙️ Example
+
+```java
+import java.util.*;
+
+Set<String> set = new HashSet<>();
+
+set.add("Amazon");
+set.add("Flipkart");
+set.add("Amazon"); // duplicate
+
+System.out.println(set);
+```
+
+---
+
+## 🔍 Output
+
+```text
+[Amazon, Flipkart]
+```
+
+---
+
+# 🔧 Basic Operations
+
+```java
+set.add("Zara");
+set.remove("Amazon");
+set.contains("Flipkart"); // true/false
+set.size();
+```
+
+---
+
+# 🎯 When to Use Set
+
+* Unique values needed
+* No duplicates
+
+👉 Example:
+
+```java
+Set<String> uniqueShipmentNames;
+```
+
+---
+
+# 📦 3. Map (VERY IMPORTANT)
+
+---
+
+# 🧠 Definition
+
+> **Map = stores data in key → value pair**
+
+---
+
+# Real-Life Example
+
+👉 Phone Contacts 📱
+
+| Name | Number |
+| ---- | ------ |
+| John | 999    |
+| Sam  | 888    |
+
+---
+
+# ⚙️ Example
+
+```java
+import java.util.*;
+
+Map<Long, String> map = new HashMap<>();
+
+map.put(1L, "Amazon");
+map.put(2L, "Flipkart");
+
+System.out.println(map);
+```
+
+---
+
+# Output
+
+```text
+{1=Amazon, 2=Flipkart}
+```
+
+---
+
+# 🔧 Basic Operations
+
+```java
+map.put(3L, "Myntra");   // add
+map.get(1L);             // get value
+map.remove(2L);          // delete
+map.containsKey(1L);     // check key
+map.size();
+```
+
+---
+
+# 🎯 When to Use Map
+
+* Data with ID
+* Fast lookup
+
+👉 Example:
+
+```java
+Map<Long, Shipment> db;
+```
+
+---
+
+# ⚔️ Quick Comparison
+
+| Feature   | List   | Set      | Map         |
+| --------- | ------ | -------- | ----------- |
+| Stores    | Values | Values   | Key → Value |
+| Duplicate | ✅ Yes  | ❌ No     | Key ❌       |
+| Order     | ✅ Yes  | ❌ No     | ❌ No        |
+| Access    | index  | no index | key         |
+
+---
+
+# 🧠 Real Example (Shipment App)
+
+---
+
+# Using List
+
+```java
+List<String> shipments = new ArrayList<>();
+
+shipments.add("Amazon");
+shipments.add("Flipkart");
+```
+
+---
+
+# Using Map
+
+```java
+Map<Long, String> db = new HashMap<>();
+
+db.put(1L, "Amazon");
+db.put(2L, "Flipkart");
+```
+
+👉 Better for:
+
+```java
+db.get(1L); // fast lookup
+```
+
+---
+
+# ⚔️ MERN Comparison
+
+| MERN   | Java |
+| ------ | ---- |
+| Array  | List |
+| Object | Map  |
+| Set    | Set  |
+
+---
+
+# 🧠 Important Concepts
+
+---
+
+## 🔁 Iteration (Loop)
+
+```java
+for (String s : list) {
+    System.out.println(s);
+}
+```
+
+---
+
+## 🔄 For Map
+
+```java
+for (Map.Entry<Long, String> entry : map.entrySet()) {
+    System.out.println(entry.getKey() + " " + entry.getValue());
+}
+```
+
+---
+
+# 🎯Focus on
+
+* List
+* Map
+* Basic operations
+
+👉 Enough for:
+
+* REST APIs
+* Spring Boot
+* Interviews
+
+---
+<br>
+ ⚠️ Check out below for advanced topics (not needed for beginners)
+
+* TreeSet
+* LinkedList
+* PriorityQueue
+* Advanced sorting
+
+---
+
+# 💬 Interview Line
+
+> “Java Collection Framework provides data structures like List, Set, and Map to efficiently store and manipulate groups of objects.”
+
+---
+
+# 🚀 Final Summary
+
+* List → ordered + duplicates
+* Set → unique values
+* Map → key-value storage
+
+---
+
+# ⚡ One-Line Memory
+
+👉 **List = Array | Set = Unique | Map = Key-Value**
+
+---
+
+# 🎯 Practical Tip
+
+👉 For backend:
+
+* Use **List** → return multiple data
+* Use **Map** → store by ID
+* Use **Set** → unique values
